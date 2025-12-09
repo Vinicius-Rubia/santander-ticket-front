@@ -6,6 +6,7 @@ import { TicketStatus } from "@/components/ui/ticket-status";
 import { TICKET_TYPE_SELECT } from "@/constants/ticket-config";
 import { TICKETS_DATA } from "@/data";
 import { format } from "date-fns";
+import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
@@ -30,7 +31,7 @@ export function TicketPage() {
   };
 
   return (
-    <div>
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
       <div className="flex items-center gap-4">
         <Button
           size="icon-sm"
@@ -72,6 +73,6 @@ export function TicketPage() {
 
         <ReplyTicketForm />
       </main>
-    </div>
+    </motion.div>
   );
 }

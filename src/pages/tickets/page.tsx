@@ -2,6 +2,7 @@ import { SubHeader } from "@/components/sub-header";
 import { Button } from "@/components/ui/button";
 import { TICKETS_DATA } from "@/data";
 import type { TicketStatusValue } from "@/enums/ticket-status";
+import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { Activity, useState } from "react";
 import { CreateQuickTicket } from "./create-quick-ticket";
@@ -55,20 +56,49 @@ export function TicketsPage() {
             setTypeSelect={setTicketTypeSelect}
             typeSelect={ticketTypeSelect}
           />
-          {filteredTickets().length > 0 ? (
-            filteredTickets().map((ticket) => (
-              <TicketCard key={ticket.ticketId} ticket={ticket} />
-            ))
-          ) : (
-            <EmptyTicket onNewTicket={handleOpenQuickTicket} />
-          )}
+          <AnimatePresence mode="popLayout">
+            {filteredTickets().length > 0 ? (
+              filteredTickets().map((ticket) => (
+                <motion.div
+                  key={ticket.ticketId}
+                  layout
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <TicketCard ticket={ticket} />
+                </motion.div>
+              ))
+            ) : (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <EmptyTicket onNewTicket={handleOpenQuickTicket} />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </main>
 
         <Activity mode={openQuickTicket ? "visible" : "hidden"}>
-          <CreateQuickTicket
-            open={openQuickTicket}
-            setOpen={setOpenQuickTicket}
-          />
+          <AnimatePresence>
+            {openQuickTicket && (
+              <motion.div
+                initial={{ x: "100%", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: "100%", opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="h-full"
+              >
+                <CreateQuickTicket
+                  open={openQuickTicket}
+                  setOpen={setOpenQuickTicket}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </Activity>
       </section>
     </div>
