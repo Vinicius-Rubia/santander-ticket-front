@@ -8,6 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/utils";
 import { LoginSchema } from "@/validations/login-schema";
 import type { LoginSchemaType } from "@/validations/schemas-types";
@@ -28,9 +29,12 @@ export function LoginForm({
     },
   });
 
-  const onSubmit = (data: LoginSchemaType) => {
+  const { formState } = form;
+
+  const onSubmit = async (data: LoginSchemaType) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(data);
-    navigate("/");
+    navigate("/tickets");
   };
 
   return (
@@ -88,8 +92,13 @@ export function LoginForm({
             </FormItem>
           )}
         />
-        <Button type="submit" size="lg" className="w-full">
-          Entrar
+        <Button
+          type="submit"
+          size="lg"
+          className="w-full"
+          disabled={formState.isSubmitting}
+        >
+          {formState.isSubmitting ? <Spinner /> : "Entrar"}
         </Button>
         <p className="text-center">
           Não tem um conta?{" "}
