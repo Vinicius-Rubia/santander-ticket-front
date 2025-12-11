@@ -19,7 +19,7 @@ export function TicketPage() {
   const ticket = TICKETS_DATA.find((t) => t.ticketId === ticketId);
 
   if (!ticketId || !ticket) {
-    navigate("/");
+    navigate("/tickets");
     toast("Ops. Não encontramos este ticket", {
       description: "Tente pesquisar pelo ticket para encontrá-lo.",
     });
@@ -27,7 +27,7 @@ export function TicketPage() {
   }
 
   const handleOnBack = () => {
-    navigate("/");
+    navigate("/tickets");
   };
 
   return (

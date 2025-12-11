@@ -10,12 +10,12 @@ export function AppRoutes() {
     <BrowserRouter>
       <Routes>
         <Route element={<BaseLayout />}>
-          <Route path="/" element={<TicketsPage />} />
-          <Route path="/ticket/:ticketId" element={<TicketPage />} />
+          <Route path="/tickets" element={<TicketsPage />} />
+          <Route path="/tickets/:ticketId" element={<TicketPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
         </Route>
 
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -43,7 +43,7 @@ export function TicketCard({ ticket }: TicketCardProps) {
           Postado às {format(ticket.publishedAt, "HH:mm")}
         </span>
         <Button asChild variant="link" size="sm">
-          <Link to={`/ticket/${ticket.ticketId}`}>Abrir Ticket</Link>
+          <Link to={`/tickets/${ticket.ticketId}`}>Abrir Ticket</Link>
         </Button>
       </div>
     </div>
